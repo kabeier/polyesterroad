@@ -1,0 +1,19 @@
+{% for item in items%}
+<div class="col-lg-4 col-md-6 mb-4">
+    <div class="card h-100">
+        <a href="{{item.img}}"><img class="card-img-top" src={{item.img}} alt=""></a>
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href="{{url_for('shop.one_item', item_id=item.id)}}">{{item.name|title}}</a>
+            </h4>
+            <h5>${{'%0.2f' % (item.price)|float}}</h5>
+            <p class="card-text">{{item.description}}</p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9733;</small>
+            <span class="float-right"><a class="btn-info btn-sm" href="{{url_for('shop.add_to_cart', id=item.id)}}">Add
+                    To Cart</a></span>
+        </div>
+    </div>
+</div>
+{%endfor%}

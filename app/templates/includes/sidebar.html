@@ -1,0 +1,8 @@
+
+    <center><h1 class="my-4"><img src="{{url_for('static',filename='/images/logo.png')}}" width=200></h1></center>
+    <div class="list-group">
+        {%for cat in cats%}
+        <a href="{{url_for('shop.cat',cat=cat.id)}}" class="list-group-item">{{cat.name}}</a>
+        {%endfor%}
+    </div>
+

@@ -1,0 +1,40 @@
+{% extends './includes/base.html' %}
+{%block content%}
+<body>
+
+  <!-- Navigation -->
+ 
+
+  <!-- Page Content -->
+  <div class="container">
+    
+    <div class="row">
+     <div class="col-lg-3">
+ 
+      <!--sidebar start-->
+      {%include '/includes/sidebar.html' %}
+      <!--sidebar end-->
+      </div>
+      <!-- /.col-lg-3 -->
+      <!--Start Carousel-->
+      
+<div class="col-lg-9">
+
+      {%include '/includes/carousel.html' %}
+      <!--end Carousel-->
+      <!-- Items here-->
+      {%include '/includes/showitems.html' %}
+      <!--items end here-->
+      </div>
+      <!-- /.row -->
+
+</div>
+<!-- /.col-lg-9 -->
+
+</div>
+<!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+{%endblock%}

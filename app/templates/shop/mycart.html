@@ -1,0 +1,142 @@
+{% extends './includes/base.html' %}
+{%block ss%}
+<link href="{{url_for('static', filename='/css/cart.css')}}" rel="stylesheet">
+{%endblock%}
+{%block content%}
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <span class="pull-right">({{current_user.cart_item_count()}}) items</span>
+                        <h5>Items in your cart</h5>
+                    </div>
+                    <div class="ibox-content">
+                        {%for item in current_user.my_cart_items_unique()%}
+                        <div class="table-responsive">
+                            <table class="table shoping-cart-table">
+                                <tbody>
+                                    <tr>
+                                        <td width="90">
+                                            
+                                                <img src="{{item.img}}" width="75">
+                                            
+                                        </td>
+                                        <td class="desc">
+                                            <h3>
+                                                <a href="#" class="text-navy">
+                                                    {{item.name}}
+                                                </a>
+                                            </h3>
+                                            <p class="small">
+                                                {{item.description}}
+                                            </p>
+                                        <a href="{{url_for('shop.remove_item', id=item.id)}}" class="text-muted"><i class="fa fa-trash"></i> Remove
+                                                    item</a>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            {{'%0.2f' % (item.price)|float}}
+                                            
+                                        </td>
+                                        <td width="65">
+                                        {%for k,v in current_user.cart_item_quanties().items()%}
+                                            {%if k==item%}
+                                                {{v}}
+                               
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                
+  
+                                                        ${{'%0.2f' % (v*item.price)|float}}
+                                                    {%endif%}
+                                                {%endfor%} 
+                                                
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        {%endfor%}
+
+                    </div>
+                    <div class="ibox-content">
+                        <form action="/checkout" method="post">
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{ key }}"
+                                data-description="Pay for Your Black Market Order" data-amount="{{current_user.cart_total_taxed()*100}}"
+                                data-locale="auto">
+                                </script>
+                        </form>
+                            <form id="goback" action="{{url_for('shop.index')}}"><button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button></form>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Cart Summary</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <span>
+                            Subtotal
+                        </span>
+                        <h3 class="font-bold">
+                            ${{'%0.2f' % (current_user.cart_total())|float}}
+                        </h3>
+                        <span>
+                            Tax
+                        </span>
+                        <h3 class="font-bold">
+                            ${{'%0.2f' % (current_user.cart_total_tax())|float}}
+                        </h3>
+                        <span>
+                            <strong>Total</strong>
+                        </span>
+                        <h2 class="font-bold">
+                            ${{'%0.2f' % (current_user.cart_total_taxed())|float}}
+                        </h2>
+
+                        <hr>
+                        <span class="text-muted small">
+                            7% sales tax is applied
+            
+                        </span>
+                        <div class="m-t-sm">
+
+                            <div class="btn-group">
+                                <form action="/checkout" method="post">
+                                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{ key }}"
+                                        data-description="Pay for Your Black Market Order" data-amount="{{current_user.cart_total_taxed()*100}}" data-locale="auto">
+                                        </script>
+                                </form>
+                                <a href="#" class="btn btn-white btn-sm"> Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Support</h5>
+                    </div>
+                    <div class="ibox-content text-center">
+                        <h3><i class="fa fa-phone"></i> +46 771 793 336</h3>
+                        <span class="small">
+                            Please contact with us if you have any questions. We are avalible 24hours 7days a week.
+                        </span>
+                    </div>
+                </div>
+
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
